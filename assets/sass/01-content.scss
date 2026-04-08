@@ -49,7 +49,8 @@ body.page-template-page-fullsingle-me {
 	line-height: 60px;
 	letter-spacing: -0.5px;
 	color: $color-text;
-	background-image: $image-background; 
+	background-image: $image-background;
+	
 	background-position: center center;
 	background-size:cover;
 
@@ -80,13 +81,14 @@ body.page-template-page-fullsingle-me {
 	position: absolute;
 	z-index: 1000;
 
+
 	@media (max-width: $bp-mobile ) {
 		padding: 5vh 5vw;
 		text-align: center;
 	}	
 
   	.me-content {
-  		height: 80vh;
+  		height: 100vh;
 		display: flex;
   		flex-direction: column;
 
@@ -108,6 +110,7 @@ body.page-template-page-fullsingle-me {
 		flex-direction: column;
 		align-self: left;
 		animation: fadein 2s;
+		color: #FFF;
 
 		@media (max-width: $bp-mobile ) {
 			align-self: center;
@@ -132,6 +135,8 @@ body.page-template-page-fullsingle-me {
 	animation: fadein 4s;
 	letter-spacing: -1px;
 	max-width: 66%;
+	background-color: rgba(200, 200, 200, 0.33);
+	padding: 2%;
 
 	@media (max-width: $bp-tablet ) {
 		max-width: none;

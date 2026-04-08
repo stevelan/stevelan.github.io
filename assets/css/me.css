@@ -148,7 +148,7 @@ body.page-template-page-fullsingle-me p {
   }
 }
 .fs-me .me-content {
-  height: 80vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -164,6 +164,7 @@ body.page-template-page-fullsingle-me p {
   flex-direction: column;
   align-self: left;
   animation: fadein 2s;
+  color: #FFF;
 }
 @media (max-width: 500px) {
   .logo {
@@ -183,6 +184,8 @@ body.page-template-page-fullsingle-me p {
   animation: fadein 4s;
   letter-spacing: -1px;
   max-width: 66%;
+  background-color: rgba(200, 200, 200, 0.33);
+  padding: 2%;
 }
 @media (max-width: 800px) {
   .bio {
