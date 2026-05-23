@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Melbourne Family-Friendly Pubs With Playgrounds</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    html, body, #map { height: 100%; margin: 0; }
+    .panel {
+      position: absolute; top: 12px; left: 54px; z-index: 1000;
+      background: white; padding: 12px 14px; border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.22); font-family: system-ui, sans-serif;
+      max-width: 370px; line-height: 1.35;
+    }
+    .panel h1 { font-size: 17px; margin: 0 0 6px; }
+    .panel p { font-size: 13px; margin: 4px 0; color: #333; }
+    .leaflet-popup-content { font-family: system-ui, sans-serif; }
+    .tag { display:inline-block; background:#eef2ff; padding:2px 6px; border-radius:999px; font-size:12px; margin-top:5px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class="panel">
+    <h1>Melbourne family-friendly pubs with play areas</h1>
+    <p>Based on Urban List’s 30 Apr 2026 list. Marker coordinates are approximate; use the Google Maps links in each popup for exact navigation.</p>
+  </div>
+  <script>
+    const pubs = [
+      {name:"Stomping Ground Brewery", address:"100 Gipps Street, Collingwood", lat:-37.8059, lng:144.9888, note:"Cubby house / brewery"},
+      {name:"Little Tackers at Anglers Tavern", address:"2 Anglers Way, Maribyrnong", lat:-37.7812, lng:144.8924, note:"Kids Quarters + Reading Room"},
+      {name:"Banjo's Social Club", address:"9 Ellison Street, Malvern East", lat:-37.8796, lng:145.0660, note:"Beer garden / lawn play"},
+      {name:"Beretta’s Langwarrin Hotel", address:"220 Cranbourne-Frankston Road, Langwarrin", lat:-38.1516, lng:145.1996, note:"Four-level soft play"},
+      {name:"Pink Hill Hotel", address:"20 Pink Hill Boulevard, Beaconsfield", lat:-38.0480, lng:145.3760, note:"Indoor + outdoor play"},
+      {name:"The Berwick Spring Hotel", address:"288-296 Clyde Road, Berwick", lat:-38.0580, lng:145.3390, note:"Kids Planet indoor playground"},
+      {name:"The Stadium at Chelsea Heights Hotel", address:"Corner Springvale Road & Wells Road, Chelsea Heights", lat:-38.0410, lng:145.1360, note:"Renovated jungle gym"},
+      {name:"The Matthew Flinders Hotel", address:"667 Warrigal Road, Chadstone", lat:-37.8860, lng:145.0900, note:"Bowling arcade + games"},
+      {name:"The Station Hotel", address:"59 Napier Street, Footscray", lat:-37.8010, lng:144.9020, note:"Shaded outdoor play area"},
+      {name:"Waltzing Matilda Hotel", address:"856-868 Heatherton Road, Springvale", lat:-37.9600, lng:145.1530, note:"Indoor slide + arcade games"},
+      {name:"The Dava Hotel", address:"614 Esplanade, Mount Martha", lat:-38.2580, lng:145.0270, note:"Indoor + outdoor playgrounds"},
+      {name:"The Croxton Park Hotel", address:"607 High Street, Thornbury", lat:-37.7600, lng:145.0010, note:"Glass-walled indoor play area"},
+      {name:"Coolaroo Hotel", address:"Corner of Barry Road & Maffra Street, Coolaroo", lat:-37.6570, lng:144.9360, note:"Carpeted indoor play area"},
+      {name:"The Ball Court Hotel", address:"60 Macedon Street, Sunbury", lat:-37.5810, lng:144.7290, note:"Outdoor playground"},
+      {name:"Lower Plenty Hotel", address:"4 Main Road, Lower Plenty", lat:-37.7340, lng:145.1160, note:"Indoor shark slide"},
+      {name:"The Victoria Hotel", address:"188 Hyde Street, Yarraville", lat:-37.8200, lng:144.8990, note:"Kids room"},
+      {name:"Edwardes Lake Hotel", address:"257 Edwardes Street, Reservoir", lat:-37.7140, lng:145.0050, note:"Kids Planet indoor play"},
+      {name:"The Glasshouse", address:"31 Station Street, Caulfield East", lat:-37.8780, lng:145.0430, note:"Indoor play centre"},
+      {name:"Auburn Hotel", address:"85 Auburn Road, Hawthorn East", lat:-37.8260, lng:145.0450, note:"Fenced outdoor playground"},
+      {name:"The Templestowe Hotel", address:"23 Parker Street, Templestowe Lower", lat:-37.7590, lng:145.1130, note:"Indoor playground + arcade"}
+    ];
+
+    const map = L.map('map').setView([-37.86, 145.05], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const group = L.featureGroup().addTo(map);
+    pubs.forEach((p, i) => {
+      const q = encodeURIComponent(`${p.name}, ${p.address}, Victoria, Australia`);
+      const html = `<strong>${i+1}. ${p.name}</strong><br>${p.address}<br><span class="tag">${p.note}</span><br><br><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${q}">Open in Google Maps</a>`;
+      L.marker([p.lat, p.lng]).bindPopup(html).addTo(group);
+    });
+    map.fitBounds(group.getBounds().pad(0.12));
+  </script>
+</body>
+</html>
